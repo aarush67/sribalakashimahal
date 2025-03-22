@@ -46,32 +46,25 @@ setInterval(() => {
   showSlide(currentIndex);
 }, 5000);
 
-// Form Submission (Simplified for Formspree)
-document.getElementById('enquiry-form').addEventListener('submit', async (e) => {
+// Form Submission with EmailJS
+document.getElementById('enquiry-form').addEventListener('submit', function(e) {
   e.preventDefault();
-  const form = e.target;
-  const formData = new FormData(form);
   const messageDiv = document.getElementById('form-message');
+  const name = document.getElementById('name').value;
+  const mobile = document.getElementById('mobile').value;
 
-  try {
-    const response = await fetch(form.action, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'application/json',
-      },
-    });
-
-    if (response.ok) {
-      messageDiv.textContent = 'Thank you! Your submission has been received!';
-      messageDiv.style.color = 'green';
-      form.reset();
-    } else {
-      messageDiv.textContent = 'Oops! Something went wrong.';
-      messageDiv.style.color = 'red';
-    }
-  } catch (error) {
+  // Send email using EmailJS
+  emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+    name: name,
+    mobile: mobile,
+    to_email: 'SriBalaKashi@gmail.com'
+  })
+  .then(function(response) {
+    messageDiv.textContent = 'Thank you! Your submission has been received!';
+    messageDiv.style.color = 'green';
+    document.getElementById('enquiry-form').reset();
+  }, function(error) {
     messageDiv.textContent = 'Oops! Something went wrong.';
     messageDiv.style.color = 'red';
-  }
+  });
 });
