@@ -130,6 +130,9 @@ const chatbotMessages = document.getElementById('chatbot-messages');
 const chatbotInput = document.getElementById('chatbot-input');
 const chatbotSend = document.getElementById('chatbot-send');
 
+// Update Send button HTML to include spinner
+chatbotSend.innerHTML = '<span>Send</span><span class="spinner"></span>';
+
 // Toggle chat window
 chatbotToggle.addEventListener('click', () => {
   chatbotWindow.style.display = chatbotWindow.style.display === 'none' ? 'flex' : 'none';
@@ -158,26 +161,35 @@ async function getBotResponse(userMessage) {
     });
 
     const data = await response.json();
-    if (data.reply) {
+    if (response.ok && data.reply) {
       return data.reply;
     }
-    return 'Sorry, I couldn’t process that. Can you try again?';
+    console.error('Backend error:', data.error || 'Unknown error');
+    return `Sorry, I couldn’t process that. Error: ${data.error || 'Unknown error'}. Please try again.`;
   } catch (error) {
-    console.error('Error:', error);
-    return 'Oops! Something went wrong. Please try again.';
+    console.error('Fetch error:', error.message);
+    return `Oops! Something went wrong: ${error.message}. Please try again.`;
   }
 }
 
-// Handle sending messages
+// Handle sending messages with spinner
 chatbotSend.addEventListener('click', async () => {
   const userMessage = chatbotInput.value.trim();
   if (!userMessage) return;
+
+  // Show spinner, disable button
+  chatbotSend.classList.add('loading');
+  chatbotSend.disabled = true;
 
   addMessage(userMessage, 'user');
   chatbotInput.value = '';
 
   const botResponse = await getBotResponse(userMessage);
   addMessage(botResponse, 'bot');
+
+  // Hide spinner, re-enable button
+  chatbotSend.classList.remove('loading');
+  chatbotSend.disabled = false;
 });
 
 // Allow sending with Enter key
