@@ -481,22 +481,25 @@ body {
   .hero {
     height: calc(100vh - 120px); /* Full height minus header padding */
     padding-top: 120px; /* Space for header */
-    margin: 0; /* Remove any default margins */
+    margin: 0;
   }
 
   .slider {
-    height: 100%; /* Ensure slider fills hero section */
+    height: 100%; /* Fill hero section */
+    min-height: 100%; /* Ensure no shrinkage */
   }
 
   .slides {
-    height: 100%; /* Ensure slides fill slider */
+    height: 100%; /* Fill slider */
+    min-height: 100%;
   }
 
   .slide {
-    background-size: auto 100%; /* Zoom out: height fills, width adjusts */
-    background-position: center top; /* Focus on top */
-    background-repeat: no-repeat; /* Prevent tiling */
-    height: 100%; /* Full height of slider */
+    background-size: contain; /* Zoom out to show full image */
+    background-position: center; /* Center both horizontally and vertically */
+    background-repeat: no-repeat; /* No tiling */
+    height: 100%; /* Full height of slides */
+    width: 100%; /* Ensure full width */
   }
 
   .hero-content {
