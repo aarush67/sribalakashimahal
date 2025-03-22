@@ -479,14 +479,14 @@ body {
   }
 
   .hero {
-    height: calc(100vh - 120px); /* Full height minus header padding */
+    height: 100vh; /* Full height including header */
     padding-top: 120px; /* Space for header */
     margin: 0;
   }
 
   .slider {
     height: 100%; /* Fill hero section */
-    min-height: 100%; /* Ensure no shrinkage */
+    min-height: 100%;
   }
 
   .slides {
@@ -495,11 +495,10 @@ body {
   }
 
   .slide {
-    background-size: contain; /* Zoom out to show full image */
-    background-position: center; /* Center both horizontally and vertically */
-    background-repeat: no-repeat; /* No tiling */
+    background-size: cover; /* Scale to fill, no grey space */
+    background-position: center; /* Center the image */
     height: 100%; /* Full height of slides */
-    width: 100%; /* Ensure full width */
+    width: 100%; /* Full width of slides */
   }
 
   .hero-content {
