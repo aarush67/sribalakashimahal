@@ -46,25 +46,30 @@ setInterval(() => {
   showSlide(currentIndex);
 }, 5000);
 
-// Form Submission with EmailJS
-document.getElementById('enquiry-form').addEventListener('submit', function(e) {
+// Form Submission with Web3Forms
+document.getElementById('enquiry-form').addEventListener('submit', async function(e) {
   e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
   const messageDiv = document.getElementById('form-message');
-  const name = document.getElementById('name').value;
-  const mobile = document.getElementById('mobile').value;
 
-  // Send email using EmailJS
-  emailjs.send('service_1jp17az', 'template_naqirny', {
-    name: name,
-    mobile: mobile,
-    to_email: 'sribalakashi@gmail.com'
-  })
-  .then(function(response) {
-    messageDiv.textContent = 'Thank you! Your submission has been received!';
-    messageDiv.style.color = 'green';
-    document.getElementById('enquiry-form').reset();
-  }, function(error) {
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      messageDiv.textContent = 'Thank you! Your submission has been received!';
+      messageDiv.style.color = 'green';
+      form.reset();
+    } else {
+      messageDiv.textContent = 'Oops! Something went wrong.';
+      messageDiv.style.color = 'red';
+    }
+  } catch (error) {
     messageDiv.textContent = 'Oops! Something went wrong.';
     messageDiv.style.color = 'red';
-  });
+  }
 });
