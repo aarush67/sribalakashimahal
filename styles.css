@@ -78,7 +78,7 @@ body {
 /* Hero Section */
 .hero {
   position: relative;
-  height: 100vh;
+  height: 70vh; /* Smaller than 100vh */
   overflow: hidden;
   padding-top: 80px; /* Space for fixed header */
 }
@@ -99,9 +99,15 @@ body {
 .slide {
   width: 14.2857%; /* 100% / 7 slides ≈ 14.2857% */
   height: 100%;
-  background-size: cover;
-  background-position: center;
   position: relative;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Scales images uniformly, cropping excess */
+  object-position: center; /* Centers the image */
+  display: block;
 }
 
 .slide::after {
@@ -480,28 +486,33 @@ body {
 
   .hero {
     padding-top: 120px; /* Space for header */
-    height: calc(100vh - 120px); /* Full height minus header */
+    height: 50vh; /* Smaller on mobile */
     margin: 0;
   }
 
   .slider {
-    height: 100%; /* Fill hero section */
+    height: 100%;
   }
 
   .slides {
-    height: 100%; /* Fill slider */
-    width: 700%; /* 7 slides × 100% = 700% */
+    height: 100%;
+    width: 700%; /* 7 slides */
   }
 
   .slide {
-    width: 14.2857%; /* 100% / 7 slides ≈ 14.2857% */
-    background-size: cover; /* Scale to fill, no grey space */
-    background-position: center; /* Perfectly centered */
-    height: 100%; /* Full height of slides */
+    width: 14.2857%; /* 100% / 7 */
+    height: 100%;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   .hero-content {
-    top: 50%; /* Center vertically */
+    top: 50%;
     padding: 0 15px;
   }
 
