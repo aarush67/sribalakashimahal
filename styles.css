@@ -479,8 +479,9 @@ body {
   }
 
   .hero {
-    height: 100vh; /* Full height including header */
     padding-top: 120px; /* Space for header */
+    height: auto; /* Let height adjust to content */
+    min-height: calc(100vh - 120px); /* Minimum full screen minus header */
     margin: 0;
   }
 
@@ -495,10 +496,12 @@ body {
   }
 
   .slide {
-    background-size: cover; /* Scale to fill, no grey space */
-    background-position: center; /* Center the image */
-    height: 100%; /* Full height of slides */
-    width: 100%; /* Full width of slides */
+    background-size: contain; /* Fit image without excessive zoom */
+    background-position: center; /* Center perfectly */
+    background-repeat: no-repeat; /* No tiling */
+    height: 0; /* Use padding-bottom for aspect ratio */
+    padding-bottom: 56.25%; /* 16:9 aspect ratio (adjust if needed) */
+    width: 100%; /* Full width */
   }
 
   .hero-content {
