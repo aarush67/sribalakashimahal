@@ -12,7 +12,12 @@ export default async function handler(req, res) {
 
   // Get the API key from environment variables
   const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
-  const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+  if (!GEMINI_API_KEY) {
+    return res.status(500).json({ error: 'Gemini API key is missing in environment variables' });
+  }
+
+  // Use the correct Gemini API URL (update if necessary)
+  const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
 
   try {
     // Define strict context about Sri Balakashi Mahal
@@ -44,9 +49,21 @@ export default async function handler(req, res) {
               }
             ]
           }
-        ]
+        ],
+        generationConfig: {
+          temperature: 0.7,
+          topK: 40,
+          topP: 0.95,
+          maxOutputTokens: 1024
+        }
       })
     });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Gemini API error:', response.status, errorText);
+      return res.status(500).json({ error: `Gemini API error: ${response.status} - ${errorText}` });
+    }
 
     const data = await response.json();
     if (data.candidates && data.candidates.length > 0) {
@@ -54,7 +71,7 @@ export default async function handler(req, res) {
     }
     return res.status(500).json({ error: 'No response from Gemini API' });
   } catch (error) {
-    console.error('Error:', error);
-    return res.status(500).json({ error: 'Something went wrong' });
+    console.error('Error in /api/chat:', error.message);
+    return res.status(500).json({ error: `Something went wrong: ${error.message}` });
   }
 }
