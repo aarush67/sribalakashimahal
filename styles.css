@@ -128,6 +128,10 @@ body {
   text-align: center;
   color: #fff;
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
 }
 
 .hero-content h1 {
@@ -139,7 +143,7 @@ body {
 .hero-content p {
   font-size: 1.4rem;
   font-weight: 300;
-  margin: 20px 0;
+  margin: 0;
 }
 
 .hero-content .btn {
@@ -152,7 +156,7 @@ body {
   font-weight: 400;
   font-size: 1.1rem;
   transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
-  margin: 10px;
+  margin: 0;
 }
 
 .hero-content .btn:hover {
@@ -558,22 +562,27 @@ body {
   }
 
   .hero-content {
-    top: 50%;
-    padding: 0 15px;
+    padding: 0 10px;
+    gap: 10px;
+    width: 100%;
+    max-width: 300px;
   }
 
   .hero-content h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    line-height: 1.2;
   }
 
   .hero-content p {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    line-height: 1.3;
   }
 
   .hero-content .btn {
     padding: 10px 20px;
-    font-size: 0.9rem;
-    margin: 5px;
+    font-size: 0.85rem;
+    width: 100%;
+    max-width: 150px;
   }
 
   .slider button {
