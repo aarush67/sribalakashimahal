@@ -58,8 +58,40 @@ slides.addEventListener('touchend', (e) => {
   startAutoSlide();
 });
 
-// Start auto-slide on load
+// Start auto-slide
 startAutoSlide();
+
+// Scroll Animations
+const reveals = document.querySelectorAll('.reveal');
+
+function checkScroll() {
+  reveals.forEach(reveal => {
+    const windowHeight = window.innerHeight;
+    const elementTop = reveal.getBoundingClientRect().top;
+    const revealPoint = 150;
+
+    if (elementTop < windowHeight - revealPoint) {
+      reveal.classList.add('active');
+    }
+  });
+}
+
+window.addEventListener('scroll', checkScroll);
+checkScroll(); // Initial check
+
+// Header Hide/Show on Scroll
+let lastScroll = 0;
+const header = document.querySelector('.header');
+
+window.addEventListener('scroll', () => {
+  const currentScroll = window.scrollY;
+  if (currentScroll > lastScroll && currentScroll > 100) {
+    header.classList.add('hidden');
+  } else {
+    header.classList.remove('hidden');
+  }
+  lastScroll = currentScroll;
+});
 
 // Form Submission with Web3Forms
 document.getElementById('enquiry-form').addEventListener('submit', async function(e) {
@@ -77,15 +109,15 @@ document.getElementById('enquiry-form').addEventListener('submit', async functio
     const result = await response.json();
     if (result.success) {
       messageDiv.textContent = 'Thank you! Your enquiry has been sent!';
-      messageDiv.style.color = '#ff6f61';
+      messageDiv.style.color = '#d4a373';
       form.reset();
       setTimeout(() => messageDiv.textContent = '', 3000);
     } else {
       messageDiv.textContent = 'Oops! Something went wrong.';
-      messageDiv.style.color = '#ff483b';
+      messageDiv.style.color = '#c68e5a';
     }
   } catch (error) {
     messageDiv.textContent = 'Oops! Something went wrong.';
-    messageDiv.style.color = '#ff483b';
+    messageDiv.style.color = '#c68e5a';
   }
 });
