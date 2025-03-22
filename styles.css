@@ -92,7 +92,7 @@ body {
   display: flex;
   width: 500%;
   height: 100%;
-  transition: transform 0.8s ease-in-out; /* Smooth transition for sliding */
+  transition: transform 0.8s ease-in-out;
 }
 
 .slide {
@@ -285,6 +285,14 @@ body {
   color: #d4a373;
   position: absolute;
   left: 0;
+}
+
+.amenities-note {
+  font-size: 0.95rem;
+  color: #666;
+  text-align: center;
+  margin-top: 30px;
+  font-style: italic;
 }
 
 /* Enquiry Section */
