@@ -54,7 +54,7 @@ document.getElementById('enquiry-form').addEventListener('submit', function(e) {
   const mobile = document.getElementById('mobile').value;
 
   // Send email using EmailJS
-  emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+  emailjs.send('service_1jp17az', 'template_naqirny', {
     name: name,
     mobile: mobile,
     to_email: 'SriBalaKashi@gmail.com'
