@@ -8,13 +8,6 @@
   <meta name="keywords" content="marriage hall, kalyana mandapam, coimbatore, thekkalur, wedding venue">
   <link rel="stylesheet" href="styles.css">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-  <!-- Add EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function() {
-      emailjs.init("VPy6QHGG86W7KthII"); // Replace with your EmailJS public key
-    })();
-  </script>
 </head>
 <body>
   <!-- Header -->
@@ -100,7 +93,8 @@
     <div class="container">
       <h2>Enquiry</h2>
       <p>Submit your details, and our manager will contact you soon.</p>
-      <form id="enquiry-form">
+      <form id="enquiry-form" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="f3b63200-efac-4ff6-a3e1-7bd4071aa508">
         <div class="form-group">
           <label for="name">Name *</label>
           <input type="text" id="name" name="name" required>
