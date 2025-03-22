@@ -479,23 +479,33 @@ body {
   }
 
   .hero {
-    height: 80vh; /* Increased height for bigger images */
-    padding-top: 120px; /* More space for header on mobile */
+    height: calc(100vh - 120px); /* Full height minus header padding */
+    padding-top: 120px; /* Space for header */
+    margin: 0; /* Remove any default margins */
+  }
+
+  .slider {
+    height: 100%; /* Ensure slider fills hero section */
+  }
+
+  .slides {
+    height: 100%; /* Ensure slides fill slider */
   }
 
   .slide {
-    background-size: cover; /* Fills screen, slightly zoomed */
-    background-position: center top; /* Focus on top of image */
-    height: 100%; /* Ensure full height */
+    background-size: auto 100%; /* Zoom out: height fills, width adjusts */
+    background-position: center top; /* Focus on top */
+    background-repeat: no-repeat; /* Prevent tiling */
+    height: 100%; /* Full height of slider */
   }
 
   .hero-content {
-    top: 45%; /* Adjusted to avoid overlap */
+    top: 45%;
     padding: 0 15px;
   }
 
   .hero-content h1 {
-    font-size: 2rem; /* Smaller but readable */
+    font-size: 2rem;
   }
 
   .hero-content p {
