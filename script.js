@@ -92,6 +92,36 @@ window.addEventListener('scroll', () => {
   }
   lastScroll = currentScroll;
 });
+
+// Form Submission with Web3Forms
+document.getElementById('enquiry-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const formData = new FormData(form);
+  const messageDiv = document.getElementById('form-message');
+
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+
+    const result = await response.json();
+    if (result.success) {
+      messageDiv.textContent = 'Thank you! Your enquiry has been sent!';
+      messageDiv.style.color = '#d4a373';
+      form.reset();
+      setTimeout(() => messageDiv.textContent = '', 3000);
+    } else {
+      messageDiv.textContent = 'Oops! Something went wrong.';
+      messageDiv.style.color = '#c68e5a';
+    }
+  } catch (error) {
+    messageDiv.textContent = 'Oops! Something went wrong.';
+    messageDiv.style.color = '#c68e5a';
+  }
+});
+
 // Chatbot Logic
 const chatbotToggle = document.querySelector('.chatbot-toggle');
 const chatbotWindow = document.querySelector('.chatbot-window');
@@ -157,31 +187,3 @@ chatbotInput.addEventListener('keypress', (e) => {
 
 // Initial greeting
 addMessage('Hello! I’m here to help with your queries about Sri Balakashi Mahal. What would you like to know?', 'bot');
-// Form Submission with Web3Forms
-document.getElementById('enquiry-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const form = e.target;
-  const formData = new FormData(form);
-  const messageDiv = document.getElementById('form-message');
-
-  try {
-    const response = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      body: formData
-    });
-
-    const result = await response.json();
-    if (result.success) {
-      messageDiv.textContent = 'Thank you! Your enquiry has been sent!';
-      messageDiv.style.color = '#d4a373';
-      form.reset();
-      setTimeout(() => messageDiv.textContent = '', 3000);
-    } else {
-      messageDiv.textContent = 'Oops! Something went wrong.';
-      messageDiv.style.color = '#c68e5a';
-    }
-  } catch (error) {
-    messageDiv.textContent = 'Oops! Something went wrong.';
-    messageDiv.style.color = '#c68e5a';
-  }
-});
