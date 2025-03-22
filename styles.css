@@ -514,7 +514,9 @@ body {
   .contact-map iframe {
     height: 300px;
   }
-  /* Chatbot Styles */
+}
+
+/* Chatbot Styles */
 .chatbot-container {
   position: fixed;
   bottom: 20px;
@@ -630,11 +632,10 @@ body {
   background: #c68e5a;
 }
 
-/* Mobile Responsiveness */
+/* Mobile Responsiveness for Chatbot */
 @media (max-width: 768px) {
   .chatbot-window {
     width: 300px;
     height: 400px;
   }
-}
 }
