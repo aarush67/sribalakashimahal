@@ -138,6 +138,7 @@ body {
   font-size: 4rem;
   font-weight: 600;
   text-shadow: 0 3px 15px rgba(0, 0, 0, 0.6);
+  overflow-wrap: break-word; /* Ensure long text wraps */
 }
 
 .hero-content p {
@@ -569,8 +570,9 @@ body {
   }
 
   .hero-content h1 {
-    font-size: 1.8rem;
+    font-size: 1.6rem; /* Reduced from 1.8rem */
     line-height: 1.2;
+    overflow-wrap: break-word;
   }
 
   .hero-content p {
@@ -617,6 +619,34 @@ body {
 
   .gallery-item img {
     height: 150px;
+  }
+}
+
+/* Extra Small Screens (e.g., 320px-480px) */
+@media (max-width: 480px) {
+  .hero-content {
+    max-width: 250px; /* Tighter for small screens */
+    gap: 8px; /* Even tighter spacing */
+  }
+
+  .hero-content h1 {
+    font-size: 1.4rem; /* Further reduced for tiny screens */
+    line-height: 1.1;
+  }
+
+  .hero-content p {
+    font-size: 0.8rem;
+  }
+
+  .hero-content .btn {
+    padding: 8px 15px;
+    font-size: 0.75rem;
+    max-width: 120px;
+  }
+
+  .slider button {
+    padding: 6px 10px;
+    font-size: 0.9rem;
   }
 }
 
