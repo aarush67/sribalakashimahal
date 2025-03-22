@@ -149,22 +149,32 @@ function addMessage(message, sender) {
 }
 
 async function getBotResponse(userMessage) {
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  const lowerMessage = userMessage.toLowerCase();
-  if (lowerMessage.includes('availability')) {
+  await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate delay
+  const msg = userMessage.toLowerCase().trim();
+
+  if (msg.includes('avail') || msg.includes('book') || msg.includes('date')) {
     return 'Please provide your event date, and I’ll check availability for you!';
-  } else if (lowerMessage.includes('price') || lowerMessage.includes('cost')) {
+  } else if (msg.includes('price') || msg.includes('cost') || msg.includes('rate')) {
     return 'Pricing depends on your event details. Contact us at 8754860890 or submit an enquiry for a quote!';
-  } else if (lowerMessage.includes('amenities')) {
+  } else if (msg.includes('amenit') || msg.includes('facil') || msg.includes('feature')) {
     return 'We offer A/C halls, dining for 350, parking, a temple, and more. Check the Amenities section for details!';
+  } else if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+    return 'Hi there! How can I assist you with Sri Balakashi Mahal today?';
+  } else if (msg.includes('contact') || msg.includes('phone') || msg.includes('email')) {
+    return 'You can reach us at 8754860890, 9600374203, or sribalakashi@gmail.com. Anything else I can help with?';
+  } else if (msg === '') {
+    return 'Looks like you didn’t type anything. How can I assist you?';
   } else {
-    return 'I’m here to help! Ask about availability, pricing, amenities, or anything else about Sri Balakashi Mahal.';
+    return 'Hmm, I’m not sure about that. Try asking about availability, pricing, amenities, or contact details!';
   }
 }
 
 chatbotSend.addEventListener('click', async () => {
   const userMessage = chatbotInput.value.trim();
-  if (!userMessage) return;
+  if (!userMessage) {
+    addMessage('Please type something!', 'bot');
+    return;
+  }
 
   chatbotSend.classList.add('loading');
   chatbotSend.disabled = true;
