@@ -46,7 +46,7 @@ setInterval(() => {
   showSlide(currentIndex);
 }, 5000);
 
-// Form Submission
+// Form Submission (Simplified for Formspree)
 document.getElementById('enquiry-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const form = e.target;
@@ -57,6 +57,9 @@ document.getElementById('enquiry-form').addEventListener('submit', async (e) => 
     const response = await fetch(form.action, {
       method: 'POST',
       body: formData,
+      headers: {
+        'Accept': 'application/json',
+      },
     });
 
     if (response.ok) {
