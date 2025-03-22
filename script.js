@@ -9,7 +9,7 @@ let autoSlideInterval;
 function showSlide(index) {
   if (index >= slideElements.length) currentIndex = 0;
   if (index < 0) currentIndex = slideElements.length - 1;
-  slides.style.transform = `translateX(${-currentIndex * (100 / slideElements.length)}%)`;
+  slides.style.transform = `translateX(${-currentIndex * 20}%)`;
 }
 
 function startAutoSlide() {
@@ -77,7 +77,7 @@ function checkScroll() {
 }
 
 window.addEventListener('scroll', checkScroll);
-checkScroll();
+checkScroll(); // Initial check
 
 // Header Hide/Show on Scroll
 let lastScroll = 0;
@@ -130,8 +130,10 @@ const chatbotMessages = document.getElementById('chatbot-messages');
 const chatbotInput = document.getElementById('chatbot-input');
 const chatbotSend = document.getElementById('chatbot-send');
 
+// Update Send button HTML to include spinner
 chatbotSend.innerHTML = '<span>Send</span><span class="spinner"></span>';
 
+// Toggle chat window
 chatbotToggle.addEventListener('click', () => {
   chatbotWindow.style.display = chatbotWindow.style.display === 'none' ? 'flex' : 'none';
 });
@@ -140,6 +142,7 @@ chatbotClose.addEventListener('click', () => {
   chatbotWindow.style.display = 'none';
 });
 
+// Add message to chat
 function addMessage(message, sender) {
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('chatbot-message', sender);
@@ -148,34 +151,33 @@ function addMessage(message, sender) {
   chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 }
 
+// Fetch response from backend
 async function getBotResponse(userMessage) {
-  await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate delay
-  const msg = userMessage.toLowerCase().trim();
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userMessage })
+    });
 
-  if (msg.includes('avail') || msg.includes('book') || msg.includes('date')) {
-    return 'Please provide your event date, and I’ll check availability for you!';
-  } else if (msg.includes('price') || msg.includes('cost') || msg.includes('rate')) {
-    return 'Pricing depends on your event details. Contact us at 8754860890 or submit an enquiry for a quote!';
-  } else if (msg.includes('amenit') || msg.includes('facil') || msg.includes('feature')) {
-    return 'We offer A/C halls, dining for 350, parking, a temple, and more. Check the Amenities section for details!';
-  } else if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
-    return 'Hi there! How can I assist you with Sri Balakashi Mahal today?';
-  } else if (msg.includes('contact') || msg.includes('phone') || msg.includes('email')) {
-    return 'You can reach us at 8754860890, 9600374203, or sribalakashi@gmail.com. Anything else I can help with?';
-  } else if (msg === '') {
-    return 'Looks like you didn’t type anything. How can I assist you?';
-  } else {
-    return 'Hmm, I’m not sure about that. Try asking about availability, pricing, amenities, or contact details!';
+    const data = await response.json();
+    if (response.ok && data.reply) {
+      return data.reply;
+    }
+    console.error('Backend error:', data.error || 'Unknown error');
+    return `Sorry, I couldn’t process that. Error: ${data.error || 'Unknown error'}. Please try again.`;
+  } catch (error) {
+    console.error('Fetch error:', error.message);
+    return `Oops! Something went wrong: ${error.message}. Please try again.`;
   }
 }
 
+// Handle sending messages with spinner
 chatbotSend.addEventListener('click', async () => {
   const userMessage = chatbotInput.value.trim();
-  if (!userMessage) {
-    addMessage('Please type something!', 'bot');
-    return;
-  }
+  if (!userMessage) return;
 
+  // Show spinner, disable button
   chatbotSend.classList.add('loading');
   chatbotSend.disabled = true;
 
@@ -185,12 +187,15 @@ chatbotSend.addEventListener('click', async () => {
   const botResponse = await getBotResponse(userMessage);
   addMessage(botResponse, 'bot');
 
+  // Hide spinner, re-enable button
   chatbotSend.classList.remove('loading');
   chatbotSend.disabled = false;
 });
 
+// Allow sending with Enter key
 chatbotInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') chatbotSend.click();
 });
 
+// Initial greeting
 addMessage('Hello! I’m here to help with your queries about Sri Balakashi Mahal. What would you like to know?', 'bot');
