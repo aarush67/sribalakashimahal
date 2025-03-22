@@ -97,7 +97,7 @@ body {
 
 .slide {
   width: 20%;
-  height: 100vh;
+  height: 100%;
   background-size: cover;
   background-position: center;
   position: relative;
@@ -477,6 +477,16 @@ body {
     padding: 6px 10px;
   }
 
+  .hero {
+    height: 60vh; /* Reduced height for mobile */
+  }
+
+  .slide {
+    background-size: contain; /* Prevents zooming, shows full image */
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
   .hero-content h1 {
     font-size: 2.5rem;
   }
@@ -641,6 +651,7 @@ body {
 }
 
 .chatbot-input button {
+  position: relative;
   background: #d4a373;
   color: #fff;
   border: none;
@@ -658,11 +669,45 @@ body {
   transform: translateY(-2px);
 }
 
+.chatbot-input button:disabled {
+  background: #d4a373;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.chatbot-input button .spinner {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.chatbot-input button.loading .spinner {
+  display: block;
+}
+
+.chatbot-input button.loading span {
+  visibility: hidden;
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
 /* Mobile Responsiveness for Chatbot */
 @media (max-width: 768px) {
   .chatbot-container {
-    bottom: 20px;
-    right: 20px;
+    bottom: 15px;
+    right: 15px;
+    left: 15px; /* Extend to left for full-width on small screens */
   }
 
   .chatbot-toggle {
@@ -671,17 +716,27 @@ body {
   }
 
   .chatbot-window {
-    width: 320px;
-    height: 450px;
+    width: 100%; /* Full-width on mobile */
+    max-width: 380px; /* Cap width for larger mobiles */
+    height: 80vh; /* Use more screen height */
+    margin: 0 auto; /* Center it */
   }
 
   .chatbot-header h3 {
     font-size: 1.1rem;
   }
 
+  .chatbot-messages {
+    padding: 15px;
+  }
+
   .chatbot-message {
     font-size: 0.95rem;
     padding: 10px 12px;
+  }
+
+  .chatbot-input {
+    padding: 10px 15px;
   }
 
   .chatbot-input input {
