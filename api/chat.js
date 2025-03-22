@@ -32,7 +32,7 @@ export default async function handler(req, res) {
       - Rental Package: Includes vessels, tables, chairs, two A/C halls, and two A/C rooms.
       - Additional Services: Assistance for floral decorations, catering, nadaswaram, videography, etc., arranged at booking.
       - Accessibility: Convenient bus services from all parts of the city.
-      - Contact: Email: SriBalaKashi@gmail.com, Phone: 8754860890, 9600374203.
+      - Contact: Email: sribalakashi@gmail.com, Phone: 8754860890, 9600374203.
       - Social: Facebook - https://www.facebook.com/people/Sri-BalaKashi-Mahal/100009736363299.
     `;
 
