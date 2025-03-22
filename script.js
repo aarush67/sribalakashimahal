@@ -9,7 +9,7 @@ let autoSlideInterval;
 function showSlide(index) {
   if (index >= slideElements.length) currentIndex = 0;
   if (index < 0) currentIndex = slideElements.length - 1;
-  slides.style.transform = `translateX(${-currentIndex * 20}%)`;
+  slides.style.transform = `translateX(${-currentIndex * (100 / slideElements.length)}%)`;
 }
 
 function startAutoSlide() {
@@ -151,24 +151,19 @@ function addMessage(message, sender) {
   chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 }
 
-// Fetch response from backend
+// Mock bot response (since /api/chat isn’t set up)
 async function getBotResponse(userMessage) {
-  try {
-    const response = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: userMessage })
-    });
-
-    const data = await response.json();
-    if (response.ok && data.reply) {
-      return data.reply;
-    }
-    console.error('Backend error:', data.error || 'Unknown error');
-    return `Sorry, I couldn’t process that. Error: ${data.error || 'Unknown error'}. Please try again.`;
-  } catch (error) {
-    console.error('Fetch error:', error.message);
-    return `Oops! Something went wrong: ${error.message}. Please try again.`;
+  // Simulate a delay for realism
+  await new Promise(resolve => setTimeout(resolve, 1000));
+  const lowerMessage = userMessage.toLowerCase();
+  if (lowerMessage.includes('availability')) {
+    return 'Please provide your event date, and I’ll check availability for you!';
+  } else if (lowerMessage.includes('price') || lowerMessage.includes('cost')) {
+    return 'Pricing depends on your event details. Contact us at 8754860890 or submit an enquiry for a quote!';
+  } else if (lowerMessage.includes('amenities')) {
+    return 'We offer A/C halls, dining for 350, parking, a temple, and more. Check the Amenities section for details!';
+  } else {
+    return 'I’m here to help! Ask about availability, pricing, amenities, or anything else about Sri Balakashi Mahal.';
   }
 }
 
