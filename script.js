@@ -9,7 +9,7 @@ let autoSlideInterval;
 function showSlide(index) {
   if (index >= slideElements.length) currentIndex = 0;
   if (index < 0) currentIndex = slideElements.length - 1;
-  slides.style.transform = `translateX(${-currentIndex * 20}%)`;
+  slides.style.transform = `translateX(${-currentIndex * (100 / slideElements.length)}%)`;
 }
 
 function startAutoSlide() {
@@ -122,7 +122,7 @@ document.getElementById('enquiry-form').addEventListener('submit', async functio
   }
 });
 
-// Chatbot Logic
+// Chatbot Logic (Untouched as Requested)
 const chatbotToggle = document.querySelector('.chatbot-toggle');
 const chatbotWindow = document.querySelector('.chatbot-window');
 const chatbotClose = document.querySelector('.chatbot-close');
