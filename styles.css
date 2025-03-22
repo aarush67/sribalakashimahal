@@ -91,13 +91,13 @@ body {
 
 .slides {
   display: flex;
-  width: 500%;
+  width: 700%; /* 7 slides × 100% = 700% */
   height: 100%;
   transition: transform 0.8s ease-in-out;
 }
 
 .slide {
-  width: 20%;
+  width: 14.2857%; /* 100% / 7 slides ≈ 14.2857% */
   height: 100%;
   background-size: cover;
   background-position: center;
@@ -490,17 +490,18 @@ body {
 
   .slides {
     height: 100%; /* Fill slider */
+    width: 700%; /* 7 slides × 100% = 700% */
   }
 
   .slide {
+    width: 14.2857%; /* 100% / 7 slides ≈ 14.2857% */
     background-size: cover; /* Scale to fill, no grey space */
     background-position: center; /* Perfectly centered */
     height: 100%; /* Full height of slides */
-    width: 100%; /* Full width */
   }
 
   .hero-content {
-    top: 50%; /* Center vertically in available space */
+    top: 50%; /* Center vertically */
     padding: 0 15px;
   }
 
