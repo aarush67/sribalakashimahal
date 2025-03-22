@@ -92,6 +92,7 @@ body {
   display: flex;
   width: 500%;
   height: 100%;
+  transition: transform 0.8s ease-in-out; /* Smooth transition for sliding */
 }
 
 .slide {
@@ -177,6 +178,7 @@ body {
 /* Fade-in Animation */
 .fade-in {
   opacity: 0;
+  transform: translateY(20px);
   animation: fadeIn 1.2s ease forwards;
 }
 
