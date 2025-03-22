@@ -92,7 +92,71 @@ window.addEventListener('scroll', () => {
   }
   lastScroll = currentScroll;
 });
+// Chatbot Logic
+const chatbotToggle = document.querySelector('.chatbot-toggle');
+const chatbotWindow = document.querySelector('.chatbot-window');
+const chatbotClose = document.querySelector('.chatbot-close');
+const chatbotMessages = document.getElementById('chatbot-messages');
+const chatbotInput = document.getElementById('chatbot-input');
+const chatbotSend = document.getElementById('chatbot-send');
 
+// Toggle chat window
+chatbotToggle.addEventListener('click', () => {
+  chatbotWindow.style.display = chatbotWindow.style.display === 'none' ? 'flex' : 'none';
+});
+
+chatbotClose.addEventListener('click', () => {
+  chatbotWindow.style.display = 'none';
+});
+
+// Add message to chat
+function addMessage(message, sender) {
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add('chatbot-message', sender);
+  messageDiv.textContent = message;
+  chatbotMessages.appendChild(messageDiv);
+  chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+// Fetch response from backend
+async function getBotResponse(userMessage) {
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: userMessage })
+    });
+
+    const data = await response.json();
+    if (data.reply) {
+      return data.reply;
+    }
+    return 'Sorry, I couldn’t process that. Can you try again?';
+  } catch (error) {
+    console.error('Error:', error);
+    return 'Oops! Something went wrong. Please try again.';
+  }
+}
+
+// Handle sending messages
+chatbotSend.addEventListener('click', async () => {
+  const userMessage = chatbotInput.value.trim();
+  if (!userMessage) return;
+
+  addMessage(userMessage, 'user');
+  chatbotInput.value = '';
+
+  const botResponse = await getBotResponse(userMessage);
+  addMessage(botResponse, 'bot');
+});
+
+// Allow sending with Enter key
+chatbotInput.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') chatbotSend.click();
+});
+
+// Initial greeting
+addMessage('Hello! I’m here to help with your queries about Sri Balakashi Mahal. What would you like to know?', 'bot');
 // Form Submission with Web3Forms
 document.getElementById('enquiry-form').addEventListener('submit', async function(e) {
   e.preventDefault();
