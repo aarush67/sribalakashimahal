@@ -140,6 +140,22 @@
     </div>
   </footer>
 
-  <script src="script.js"></script>
+<!-- Chatbot Widget -->
+<div class="chatbot-container">
+  <button class="chatbot-toggle">💬 Chat with Us</button>
+  <div class="chatbot-window" style="display: none;">
+    <div class="chatbot-header">
+      <h3>Venue Assistant</h3>
+      <button class="chatbot-close">✖</button>
+    </div>
+    <div class="chatbot-messages" id="chatbot-messages"></div>
+    <div class="chatbot-input">
+      <input type="text" id="chatbot-input" placeholder="Ask about our venue...">
+      <button id="chatbot-send">Send</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
