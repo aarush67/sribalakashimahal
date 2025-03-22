@@ -80,6 +80,7 @@ body {
   position: relative;
   height: 100vh;
   overflow: hidden;
+  padding-top: 80px; /* Space for fixed header */
 }
 
 .slider {
@@ -478,31 +479,37 @@ body {
   }
 
   .hero {
-    height: 60vh; /* Reduced height for mobile */
+    height: 80vh; /* Increased height for bigger images */
+    padding-top: 120px; /* More space for header on mobile */
   }
 
   .slide {
-    background-size: contain; /* Prevents zooming, shows full image */
-    background-repeat: no-repeat;
-    background-position: center;
+    background-size: cover; /* Fills screen, slightly zoomed */
+    background-position: center top; /* Focus on top of image */
+    height: 100%; /* Ensure full height */
+  }
+
+  .hero-content {
+    top: 45%; /* Adjusted to avoid overlap */
+    padding: 0 15px;
   }
 
   .hero-content h1 {
-    font-size: 2.5rem;
+    font-size: 2rem; /* Smaller but readable */
   }
 
   .hero-content p {
-    font-size: 1.1rem;
-  }
-
-  .hero-content .btn {
-    padding: 12px 25px;
     font-size: 1rem;
   }
 
+  .hero-content .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
   .slider button {
-    font-size: 1.2rem;
-    padding: 10px 14px;
+    font-size: 1rem;
+    padding: 8px 12px;
   }
 
   .section-title {
@@ -707,7 +714,7 @@ body {
   .chatbot-container {
     bottom: 15px;
     right: 15px;
-    left: 15px; /* Extend to left for full-width on small screens */
+    left: 15px;
   }
 
   .chatbot-toggle {
@@ -716,10 +723,10 @@ body {
   }
 
   .chatbot-window {
-    width: 100%; /* Full-width on mobile */
-    max-width: 380px; /* Cap width for larger mobiles */
-    height: 80vh; /* Use more screen height */
-    margin: 0 auto; /* Center it */
+    width: 100%;
+    max-width: 380px;
+    height: 80vh;
+    margin: 0 auto;
   }
 
   .chatbot-header h3 {
