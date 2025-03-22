@@ -77,7 +77,7 @@ function checkScroll() {
 }
 
 window.addEventListener('scroll', checkScroll);
-checkScroll(); // Initial check
+checkScroll();
 
 // Header Hide/Show on Scroll
 let lastScroll = 0;
@@ -130,10 +130,8 @@ const chatbotMessages = document.getElementById('chatbot-messages');
 const chatbotInput = document.getElementById('chatbot-input');
 const chatbotSend = document.getElementById('chatbot-send');
 
-// Update Send button HTML to include spinner
 chatbotSend.innerHTML = '<span>Send</span><span class="spinner"></span>';
 
-// Toggle chat window
 chatbotToggle.addEventListener('click', () => {
   chatbotWindow.style.display = chatbotWindow.style.display === 'none' ? 'flex' : 'none';
 });
@@ -142,7 +140,6 @@ chatbotClose.addEventListener('click', () => {
   chatbotWindow.style.display = 'none';
 });
 
-// Add message to chat
 function addMessage(message, sender) {
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('chatbot-message', sender);
@@ -151,9 +148,7 @@ function addMessage(message, sender) {
   chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
 }
 
-// Mock bot response (since /api/chat isn’t set up)
 async function getBotResponse(userMessage) {
-  // Simulate a delay for realism
   await new Promise(resolve => setTimeout(resolve, 1000));
   const lowerMessage = userMessage.toLowerCase();
   if (lowerMessage.includes('availability')) {
@@ -167,12 +162,10 @@ async function getBotResponse(userMessage) {
   }
 }
 
-// Handle sending messages with spinner
 chatbotSend.addEventListener('click', async () => {
   const userMessage = chatbotInput.value.trim();
   if (!userMessage) return;
 
-  // Show spinner, disable button
   chatbotSend.classList.add('loading');
   chatbotSend.disabled = true;
 
@@ -182,15 +175,12 @@ chatbotSend.addEventListener('click', async () => {
   const botResponse = await getBotResponse(userMessage);
   addMessage(botResponse, 'bot');
 
-  // Hide spinner, re-enable button
   chatbotSend.classList.remove('loading');
   chatbotSend.disabled = false;
 });
 
-// Allow sending with Enter key
 chatbotInput.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') chatbotSend.click();
 });
 
-// Initial greeting
 addMessage('Hello! I’m here to help with your queries about Sri Balakashi Mahal. What would you like to know?', 'bot');
