@@ -29,3 +29,26 @@ window.addEventListener('scroll', () => {
   }
   lastScroll = currentScroll;
 });
+
+// Lightbox Functionality
+const galleryItems = document.querySelectorAll('.gallery-item img');
+const lightbox = document.createElement('div');
+lightbox.className = 'lightbox';
+document.body.appendChild(lightbox);
+
+galleryItems.forEach(img => {
+  img.addEventListener('click', () => {
+    const fullImg = document.createElement('img');
+    fullImg.src = img.src;
+    fullImg.className = 'lightbox-img';
+    while (lightbox.firstChild) {
+      lightbox.removeChild(lightbox.firstChild);
+    }
+    lightbox.appendChild(fullImg);
+    lightbox.style.display = 'flex';
+  });
+});
+
+lightbox.addEventListener('click', () => {
+  lightbox.style.display = 'none';
+});
