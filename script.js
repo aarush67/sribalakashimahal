@@ -57,7 +57,7 @@ document.getElementById('enquiry-form').addEventListener('submit', function(e) {
   emailjs.send('service_1jp17az', 'template_naqirny', {
     name: name,
     mobile: mobile,
-    to_email: 'SriBalaKashi@gmail.com'
+    to_email: 'sribalakashi@gmail.com'
   })
   .then(function(response) {
     messageDiv.textContent = 'Thank you! Your submission has been received!';
