@@ -1,6 +1,5 @@
 // api/chat.js
 export default async function handler(req, res) {
-  // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -10,21 +9,26 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Message is required' });
   }
 
-  // Get the API key from environment variables
+  // Pseudo-code for rate limiting (implement with Redis or similar in production)
+  /*
+  const rateLimit = await checkRateLimit(req.ip);
+  if (rateLimit.exceeded) {
+    return res.status(429).json({ error: 'Too many requests' });
+  }
+  */
+
   const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
   if (!GEMINI_API_KEY) {
-    return res.status(500).json({ error: 'Gemini API key is missing in environment variables' });
+    return res.status(500).json({ error: 'Gemini API key is missing' });
   }
 
-  // Use the correct Gemini API URL (update if necessary)
   const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
 
   try {
-    // Define strict context about Sri Balakashi Mahal
     const venueContext = `
-      You are a helpful assistant for Sri Balakashi Mahal, a premier wedding venue located in Thekkalur, Coimbatore, Tamilnadu, India. Your role is to assist users with information about the venue, its amenities, booking process, and contact details. Do not provide information unrelated to Sri Balakashi Mahal or its services. If a user asks something outside this scope, politely redirect them to ask about the venue.
+      You are a helpful assistant for Sri Balakashi Mahal, a premier wedding venue in Thekkalur, Coimbatore, Tamilnadu, India. Provide information only about the venue, its amenities, booking process, and contact details. Redirect unrelated queries to focus on the venue.
 
-      Details about Sri Balakashi Mahal:
+      Details:
       - Location: Om Aditiya Nagar, Thekkalur, Coimbatore-641654, Tamilnadu, India.
       - Capacity: Air-conditioned marriage hall for up to 1,000 guests, dining hall for 350 guests.
       - Rooms: Two luxurious air-conditioned rooms for the bride and groom.
@@ -36,7 +40,6 @@ export default async function handler(req, res) {
       - Social: Facebook - https://www.facebook.com/people/Sri-BalaKashi-Mahal/100009736363299.
     `;
 
-    // Make request to Gemini API
     const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -45,7 +48,7 @@ export default async function handler(req, res) {
           {
             parts: [
               {
-                text: `${venueContext}\nUser: ${message}\nAnswer as a helpful venue assistant, focusing only on Sri Balakashi Mahal and its services. If the user asks about unrelated topics, politely redirect them to ask about the venue.`
+                text: `${venueContext}\nUser: ${message}\nAnswer as a helpful venue assistant, focusing only on Sri Balakashi Mahal and its services.`
               }
             ]
           }
@@ -61,8 +64,7 @@ export default async function handler(req, res) {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Gemini API error:', response.status, errorText);
-      return res.status(500).json({ error: `Gemini API error: ${response.status} - ${errorText}` });
+      return res.status(500).json({ error: `Gemini API error: ${errorText}` });
     }
 
     const data = await response.json();
@@ -71,7 +73,6 @@ export default async function handler(req, res) {
     }
     return res.status(500).json({ error: 'No response from Gemini API' });
   } catch (error) {
-    console.error('Error in /api/chat:', error.message);
     return res.status(500).json({ error: `Something went wrong: ${error.message}` });
   }
 }
