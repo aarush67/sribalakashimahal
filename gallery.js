@@ -91,6 +91,10 @@ galleryItems.forEach((img, index) => {
     lightbox.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   });
+  img.onerror = () => {
+    img.src = 'fallback-image.jpg'; // Replace with a fallback image if needed
+    img.alt = 'Fallback image for Sri Balakashi Mahal';
+  };
 });
 
 lightbox.addEventListener('click', (e) => {
