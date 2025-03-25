@@ -30,7 +30,17 @@ window.addEventListener('scroll', () => {
   lastScroll = currentScroll;
 });
 
-// Enhanced Lightbox Functionality
+// Mobile Navigation Toggle
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.querySelector('.nav ul');
+
+navToggle.addEventListener('click', () => {
+  const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+  navToggle.setAttribute('aria-expanded', !isExpanded);
+  navMenu.classList.toggle('active');
+});
+
+// Lightbox Functionality
 const galleryItems = document.querySelectorAll('.gallery-item img');
 const lightbox = document.createElement('div');
 lightbox.className = 'lightbox';
@@ -40,7 +50,7 @@ let currentIndex = 0;
 const images = Array.from(galleryItems).map(img => img.src);
 
 function updateLightbox(index, direction = null) {
-  currentIndex = (index + images.length) % images.length; // Wrap around
+  currentIndex = (index + images.length) % images.length;
   const fullImg = document.createElement('img');
   fullImg.src = images[currentIndex];
   fullImg.className = 'lightbox-img';
@@ -48,9 +58,20 @@ function updateLightbox(index, direction = null) {
     fullImg.classList.add(`slide-${direction}`);
   }
 
-  const prevArrow = document.querySelector('.lightbox-prev');
-  const nextArrow = document.querySelector('.lightbox-next');
-  const closeBtn = document.querySelector('.lightbox-close');
+  const prevArrow = document.createElement('button');
+  prevArrow.className = 'lightbox-prev';
+  prevArrow.textContent = '❮';
+  prevArrow.setAttribute('aria-label', 'Previous image');
+
+  const nextArrow = document.createElement('button');
+  nextArrow.className = 'lightbox-next';
+  nextArrow.textContent = '❯';
+  nextArrow.setAttribute('aria-label', 'Next image');
+
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'lightbox-close';
+  closeBtn.textContent = '✖';
+  closeBtn.setAttribute('aria-label', 'Close lightbox');
 
   while (lightbox.firstChild) {
     lightbox.removeChild(lightbox.firstChild);
@@ -60,26 +81,18 @@ function updateLightbox(index, direction = null) {
   lightbox.appendChild(nextArrow);
   lightbox.appendChild(closeBtn);
 
-  // Trigger reflow for animation
   setTimeout(() => fullImg.classList.add('loaded'), 10);
 }
 
 galleryItems.forEach((img, index) => {
   img.addEventListener('click', () => {
     currentIndex = index;
-    lightbox.innerHTML = `
-      <img src="${images[currentIndex]}" class="lightbox-img">
-      <button class="lightbox-prev">❮</button>
-      <button class="lightbox-next">❯</button>
-      <button class="lightbox-close">✖</button>
-    `;
+    updateLightbox(currentIndex);
     lightbox.style.display = 'flex';
-    document.body.style.overflow = 'hidden'; // Prevent background scroll
-    setTimeout(() => lightbox.querySelector('.lightbox-img').classList.add('loaded'), 10);
+    document.body.style.overflow = 'hidden';
   });
 });
 
-// Event delegation for lightbox controls
 lightbox.addEventListener('click', (e) => {
   if (e.target.classList.contains('lightbox-close') || e.target === lightbox) {
     lightbox.style.display = 'none';
@@ -91,7 +104,6 @@ lightbox.addEventListener('click', (e) => {
   }
 });
 
-// Keyboard navigation
 document.addEventListener('keydown', (e) => {
   if (lightbox.style.display === 'flex') {
     if (e.key === 'ArrowLeft') updateLightbox(currentIndex - 1, 'left');
