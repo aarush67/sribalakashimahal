@@ -3,13 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gallery - Sri Balakashi Mahal</title>
-  <meta name="description" content="Explore the gallery of Sri Balakashi Mahal, showcasing our beautiful wedding venue in Thekkalur, Coimbatore.">
-  <meta name="keywords" content="marriage hall gallery, wedding venue photos, coimbatore, thekkalur">
+  <title>Gallery - Sri Balakashi Mahal | Wedding Venue in Thekkalur, Coimbatore</title>
+  <meta name="description" content="Explore the gallery of Sri Balakashi Mahal, showcasing our beautiful wedding venue in Thekkalur, Coimbatore. Perfect for weddings and events.">
+  <meta name="keywords" content="marriage hall gallery, wedding venue photos, coimbatore, thekkalur, event space">
+  <meta name="robots" content="index, follow">
   <link rel="stylesheet" href="styles.css">
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -17,33 +20,36 @@
   <header class="header">
     <div class="container">
       <div class="logo">
-        <a href="index.html#home"><img src="logo.png" alt="Sri Balakashi Mahal"></a>
+        <a href="index.html#home" aria-label="Sri Balakashi Mahal Home"><img src="logo.png" alt="Sri Balakashi Mahal Logo"></a>
       </div>
-      <nav class="nav">
-        <ul>
+      <nav class="nav" aria-label="Main navigation">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="Toggle navigation">
+          <span class="hamburger"></span>
+        </button>
+        <ul id="nav-menu">
           <li><a href="index.html#home">Home</a></li>
           <li><a href="index.html#about">About</a></li>
           <li><a href="index.html#amenities">Amenities</a></li>
           <li><a href="index.html#enquiry">Enquiry</a></li>
           <li><a href="index.html#contact">Contact</a></li>
-          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="gallery.html" aria-current="page">Gallery</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
   <!-- Gallery Section -->
-  <section class="gallery reveal">
+  <section class="gallery reveal" aria-labelledby="gallery-title">
     <div class="container">
-      <h2 class="section-title">Our Gallery</h2>
+      <h2 id="gallery-title" class="section-title">Our Gallery</h2>
       <div class="gallery-grid">
-        <div class="gallery-item"><img src="slide_01.jpg" alt="Gallery Image 1" loading="lazy"></div>
-        <div class="gallery-item"><img src="slide_02.jpg" alt="Gallery Image 2" loading="lazy"></div>
-        <div class="gallery-item"><img src="slide_03.jpg" alt="Gallery Image 3" loading="lazy"></div>
-        <div class="gallery-item"><img src="slide_04.jpg" alt="Gallery Image 4" loading="lazy"></div>
-        <div class="gallery-item"><img src="slide_05.jpg" alt="Gallery Image 5" loading="lazy"></div>
-        <div class="gallery-item"><img src="slide_06.jpg" alt="Gallery Image 6" loading="lazy"></div>
-        <div class="gallery-item"><img src="slide_07.jpg" alt="Gallery Image 7" loading="lazy"></div>
+        <div class="gallery-item"><img src="slide_01.jpg" alt="Elegant wedding hall setup at Sri Balakashi Mahal" loading="lazy"></div>
+        <div class="gallery-item"><img src="slide_02.jpg" alt="Traditional ceremony at Sri Balakashi Mahal temple" loading="lazy"></div>
+        <div class="gallery-item"><img src="slide_03.jpg" alt="Spacious dining hall at Sri Balakashi Mahal" loading="lazy"></div>
+        <div class="gallery-item"><img src="slide_04.jpg" alt="Bride and groom suite at Sri Balakashi Mahal" loading="lazy"></div>
+        <div class="gallery-item"><img src="slide_05.jpg" alt="Outdoor view of Sri Balakashi Mahal venue" loading="lazy"></div>
+        <div class="gallery-item"><img src="slide_06.jpg" alt="Floral decorations at Sri Balakashi Mahal" loading="lazy"></div>
+        <div class="gallery-item"><img src="slide_07.jpg" alt="Night view of Sri Balakashi Mahal illuminated" loading="lazy"></div>
       </div>
     </div>
   </section>
@@ -51,10 +57,30 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <p>© 2025 Sri Balakashi Mahal. All Rights Reserved.</p>
+      <p>&copy; 2025 Sri Balakashi Mahal. All Rights Reserved.</p>
     </div>
   </footer>
 
-  <script src="gallery.js"></script>
+  <!-- Schema Markup for Image Gallery -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    "name": "Sri Balakashi Mahal Gallery",
+    "description": "A collection of images showcasing the beautiful wedding venue of Sri Balakashi Mahal in Thekkalur, Coimbatore.",
+    "url": "https://yourwebsite.com/gallery.html",
+    "image": [
+      "https://yourwebsite.com/slide_01.jpg",
+      "https://yourwebsite.com/slide_02.jpg",
+      "https://yourwebsite.com/slide_03.jpg",
+      "https://yourwebsite.com/slide_04.jpg",
+      "https://yourwebsite.com/slide_05.jpg",
+      "https://yourwebsite.com/slide_06.jpg",
+      "https://yourwebsite.com/slide_07.jpg"
+    ]
+  }
+  </script>
+
+  <script src="gallery.js" defer></script>
 </body>
 </html>
