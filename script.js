@@ -58,6 +58,15 @@ slides.addEventListener('touchend', (e) => {
   startAutoSlide();
 });
 
+// Ensure images load properly
+slideElements.forEach(slide => {
+  const img = slide.querySelector('img');
+  img.onerror = () => {
+    img.src = 'fallback-image.jpg'; // Replace with a fallback image if needed
+    img.alt = 'Fallback image for Sri Balakashi Mahal';
+  };
+});
+
 // Start auto-slide
 startAutoSlide();
 
