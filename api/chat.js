@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Gemini API key is missing' });
   }
 
-  const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent';
+  const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-latest:generateContent';
 
   try {
     const venueContext = `
